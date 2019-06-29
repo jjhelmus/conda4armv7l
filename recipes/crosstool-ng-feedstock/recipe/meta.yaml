@@ -1,43 +1,17 @@
-{% set commit="master-WIP" %}
-
 package:
   name: crosstool-ng
-  version: {{ (GIT_DESCRIBE_TAG or "").split("-")[-1] }}.{{ GIT_BUILD_STR }}
+  version: 1.24.0
 
 source:
-  git_url: https://github.com/continuumio/crosstool-ng.git
-  git_tag: {{ commit }}
+  url: http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.24.0.tar.bz2
+  sha256: d200d1ea5e2056c60d2b11b3f2721d30e53e817e1e0050fffaca074864e2f523
 
 build:
-  number: 1
+  number: 0
   missing_dso_whitelist:
     - '*'
 
-requirements:
-  build:
-    # TODO :: We need some [not bootstrapping] selector or something?
-    - {{ compiler('c') }}
-    - autoconf
-    - automake
-    - texinfo
-    - bison
-    - flex
-    - gettext
-    - git
-    - help2man
-    - texinfo
-    - unzip
-  host:
-    - ncurses
-    - libtool
-    # There are two packages called 'wget' on defaults, one, the real wget and the other
-    # a pythonic implementation from Anatoly Techtonik. At present, conda is installing
-    # the latter unless I force the version(trying without this now, I believe Ilan may
-    # have removed Anatoly's?
-    - wget
-  run:
-    - ncurses
-    - libtool
+# no requirements, this is built using system tools
 
 test:
   commands:
@@ -50,3 +24,4 @@ extra:
   recipe-maintainers:
     - mingwandroid
     - msarahan
+    - jjhelmus
