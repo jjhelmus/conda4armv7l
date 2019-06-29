@@ -35,7 +35,7 @@ RUN ${CFS_PREFIX}/bin/python3 -m pip install \
     tqdm
 
 # Install conda-build
-ENV CONDA_BUILD_VERSION 3.16.3
+ENV CONDA_BUILD_VERSION 3.17.8
 RUN curl -L -O https://github.com/conda/conda-build/archive/${CONDA_BUILD_VERSION}.tar.gz && \
     tar xf ${CONDA_BUILD_VERSION}.tar.gz && \
     pushd conda-build-${CONDA_BUILD_VERSION} && \
