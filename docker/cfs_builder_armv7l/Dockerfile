@@ -50,4 +50,4 @@ RUN yum remove -y \
     libstdc++-devel \
   && yum clean all
 
-CMD [ "/bin/bash" ]
+CMD [ "linux32", "/bin/bash" ]
