@@ -35,13 +35,13 @@ RUN ${CFS_PREFIX}/bin/python3 -m pip install \
     tqdm
 
 # Install conda-build
-ENV CONDA_BUILD_VERSION 3.18.5
-RUN curl -L -O https://github.com/conda/conda-build/releases/download/${CONDA_BUILD_VERSION}/conda-build-${CONDA_BUILD_VERSION}.tar.gz && \
-    tar xf conda-build-${CONDA_BUILD_VERSION}.tar.gz && \
+ENV CONDA_BUILD_VERSION 3.16.3
+RUN curl -L -O https://github.com/conda/conda-build/archive/${CONDA_BUILD_VERSION}.tar.gz && \
+    tar xf ${CONDA_BUILD_VERSION}.tar.gz && \
     pushd conda-build-${CONDA_BUILD_VERSION} && \
     ${CFS_PREFIX}/bin/python3 setup.py install --single-version-externally-managed --record record.txt && \
     popd && \
-    rm -rf conda-build-${CONDA_BUILD_VERSION} conda-build-${CONDA_BUILD_VERSION}.tar.gz
+    rm -rf conda-build-${CONDA_BUILD_VERSION} ${CONDA_BUILD_VERSION}.tar.gz
 
 # Remove build tools
 RUN yum remove -y \
