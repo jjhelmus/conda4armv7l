@@ -1,0 +1,41 @@
+# Jinja variables help maintain the recipe as you'll update the version only here.
+{% set version = "4.2" %}
+{% set sha256 = "4e5ce3b62fe5d75ff8db92b7f6df91e476d10c3aceebf1639796dc5bfece655f" %}
+
+package:
+  name: make
+  version: {{ version }}
+
+source:
+  fn: make-{{ version }}.tar.bz2
+  url: https://ftp.gnu.org/gnu/make/make-{{ version }}.tar.bz2
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  detect_binary_files_with_prefix: False
+
+requirements:
+  build:
+    - {{ compiler("c") }}        # [unix]
+    - {{ compiler("m2w64_c") }}  # [win]
+
+test:
+  commands:
+    - $PREFIX/bin/make --help  # [unix]
+    - '"%LIBRARY_BIN%\gnumake.exe" --help'  # [win]
+    - '"%LIBRARY_BIN%\make.exe" --help'  # [win]
+
+about:
+  home: https://www.gnu.org/software/make/
+  license: GPLv3
+  license_file: COPYING
+  summary: >-
+    GNU Make is a tool which controls the generation of executables and other
+    non-source files of a program from the program's source files.
+  doc_url: https://www.gnu.org/software/make/manual/
+
+extra:
+  recipe-maintainers:
+    - asmeurer
+    - scopatz
