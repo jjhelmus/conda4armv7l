@@ -20,10 +20,6 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - m4
-    - help2man
-    - autoconf
-    - automake
     - make
 
 test:
