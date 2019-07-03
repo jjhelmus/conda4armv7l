@@ -25,7 +25,7 @@ armhfp architectures including Debian Jessie, Ubuntu 16.04, and Fedora 28.
 | package | version |
 | --- | --- |
 | glibc | 2.17 |
-| gcc | 7.3.0 |
+| gcc | 8.3.0 |
 | binutils | 2.29.1 |
 | OpenSSL | 1.1.1c |
 | Python | 3.7.3 |
