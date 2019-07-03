@@ -18,6 +18,9 @@ source:
     - 0003-Win64-Remove-two-SHORT-annotations.patch                    # [win]
     - 0004-Remove-C99-constructs.patch                                 # [win]
     - windows-static.patch                                             # [win]
+    # add --disable-docs to configuration, see
+    # https://github.com/libffi/libffi/pull/190
+    - 190.patch
 
 build:
   number: 1006
@@ -33,8 +36,8 @@ requirements:
     - {{posix}}automake{{ am_version }}  # [win]
     - {{posix}}automake                  # [not win]
     - {{posix}}libtool
-    - {{posix}}patch
-    - {{posix}}texinfo
+    - {{posix}}patch                     # [win]
+    - {{posix}}texinfo                   # [win]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
