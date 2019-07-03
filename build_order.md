@@ -27,15 +27,14 @@ The recipes in this repository were built in the following order:
 * readline
 * sqlite
 * patch
+* libffi
+* gettext
 
 # Planned build order
 
 # problems
 * help2man : perl issue
-* texinfo : needs gettext and help2man
-* libffi : needs texinfo?
-* gettext : requires libffi
-* openssl : need to work out config
+* openssl : perl issue
 
 # 90
 * wget
