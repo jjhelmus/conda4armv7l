@@ -1,0 +1,45 @@
+{% set version = "6.6" %}
+
+package:
+  name: texinfo
+  version: {{ version }}
+
+source:
+  url: http://ftp.gnu.org/gnu/texinfo/texinfo-{{ version }}.tar.gz
+  sha256: 900723b220baa4672c4214a873a69ecbe1cb5f14c926a1a4bbb230ac309294cb
+
+build:
+  number: 0
+  skip: True  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - autoconf
+    - automake
+    - libtool
+    - help2man
+    - gettext
+    - gawk
+    - make
+  host:
+    - ncurses
+    - libiconv  # [osx]
+    - perl
+  run:
+    - perl
+
+test:
+  commands:
+    - makeinfo -h
+
+about:
+  home: http://www.gnu.org/software/texinfo/
+  license: GPL-2.0 and GPL-3.0
+  summary: 'The GNU Documentation System'
+
+extra:
+  recipe-maintainers:
+    - pelson
+    - rhattersley
+    - ocefpaf
