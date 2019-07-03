@@ -1,0 +1,38 @@
+{% set version = "3.3.3" %}
+
+package:
+  name: setuptools_scm
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/s/setuptools_scm/setuptools_scm-{{ version }}.tar.gz
+  sha256: bd25e1fb5e4d603dcf490f1fde40fb4c595b357795674c3e5cb7f6217ab39ea5
+
+build:
+  noarch: python
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - setuptools
+
+test:
+  imports:
+    - setuptools_scm
+
+about:
+  home: https://github.com/pypa/setuptools_scm/
+  license: MIT
+  # license_file: LICENSE
+  summary: 'The blessed package to manage your versions by scm tags.'
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - kwilcox
+    - astaric

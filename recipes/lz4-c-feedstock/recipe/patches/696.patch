@@ -1,0 +1,62 @@
+From 024216ef7394b6411eeaa5b52d0cec9953a44249 Mon Sep 17 00:00:00 2001
+From: Chongyu Zhu <i@lembacon.com>
+Date: Wed, 24 Apr 2019 03:13:19 +0800
+Subject: [PATCH 1/2] lib/Makefile: Fix detection of `Darwin`.
+
+---
+ lib/Makefile | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/lib/Makefile b/lib/Makefile
+index 330642a0..8f21d3d6 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -55,10 +55,11 @@ FLAGS    = $(CPPFLAGS) $(CFLAGS) $(LDFLAGS)
+ 
+ SRCFILES := $(sort $(wildcard *.c))
+ 
++include ../Makefile.inc
+ 
+ # OS X linker doesn't support -soname, and use different extension
+ # see : https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/DynamicLibraryDesignGuidelines.html
+-ifeq ($(OS), Darwin)
++ifeq ($(TARGET_OS), Darwin)
+ 	SHARED_EXT = dylib
+ 	SHARED_EXT_MAJOR = $(LIBVER_MAJOR).$(SHARED_EXT)
+ 	SHARED_EXT_VER = $(LIBVER).$(SHARED_EXT)
+@@ -70,8 +71,6 @@ else
+ 	SHARED_EXT_VER = $(SHARED_EXT).$(LIBVER)
+ endif
+ 
+-include ../Makefile.inc
+-
+ .PHONY: default
+ default: lib-release
+ 
+
+From 2b68501ece2596bb40b27ffca1d1d8b54282d2fc Mon Sep 17 00:00:00 2001
+From: Yann Collet <cyan@fb.com>
+Date: Tue, 23 Apr 2019 12:29:39 -0700
+Subject: [PATCH 2/2] added library build test on Mac OS-X
+
+---
+ .travis.yml | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/.travis.yml b/.travis.yml
+index 20654786..c684b6c9 100644
+--- a/.travis.yml
++++ b/.travis.yml
+@@ -8,8 +8,11 @@ matrix:
+       os: osx
+       compiler: clang
+       script:
++        - make   # test library build
++        - make clean
+         - make -C tests test-lz4 MOREFLAGS='-Werror -Wconversion -Wno-sign-conversion' | tee # test scenario where `stdout` is not the console
+-        - CFLAGS=-m32 make -C tests clean test-lz4-contentSize
++        - make clean
++        - CFLAGS=-m32 make -C tests test-lz4-contentSize
+ 
+     # Container-based 12.04 LTS Server Edition 64 bit (doesn't support 32-bit includes)
+     - name: (Precise) benchmark test

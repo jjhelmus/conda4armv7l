@@ -1,0 +1,82 @@
+{% set version = "2.22.0" %}
+
+package:
+  name: git
+  version: {{ version }}
+
+source:
+  url: https://github.com/git/git/archive/v{{ version }}.tar.gz  # [not win]
+  sha256: d2557e9d6a90819cca463b7f2a7b30fd62d8ccc9760c8453f078e936559cb017  # [not win]
+  patches:                                              # [not win]
+    - 0001-macOS-Do-not-use-the-system-Wish-urgh.patch  # [not win]
+
+  url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-64-bit.7z.exe  # [win64]
+  sha256: 2d935dc309568a9694711ac080967388c98b69907fb015f6536a4a0920084e0c  # [win64]
+
+build:
+  number: 0
+  # git hardcodes paths to external utilities (e.g. curl)
+  detect_binary_files_with_prefix: true
+
+requirements:
+  build:
+    - {{ compiler('c') }}  # [unix]
+    - autoconf  # [unix]
+    - make      # [unix]
+    - 7za       # [win]
+  host:
+    - curl      # [unix]
+    - expat     # [unix]
+    - gettext   # [unix]
+    - libiconv  # [unix]
+    - openssl   # [unix]
+    - perl      # [unix]
+    - tk        # [unix]
+    - zlib      # [unix]
+  run:
+    - curl      # [unix]
+    - expat     # [unix]
+    - gettext   # [unix]
+    - libiconv  # [unix]
+    - openssl   # [unix]
+    - perl      # [unix]
+    - tk        # [unix]
+    - zlib      # [unix]
+
+test:
+  commands:
+    # Verify git location.
+    - test -f $PREFIX/bin/git                               # [unix]
+    - test -f $PREFIX/bin/gitk                              # [unix]
+    - test -f $PREFIX/bin/git-credential-osxkeychain        # [osx]
+    - if not exist %LIBRARY_PREFIX%\\bin\\git.exe exit 1    # [win]
+
+    # Verify interactive support.
+    - test -f $PREFIX/libexec/git-core/git-add--interactive  # [unix]
+
+    # Run git commands.
+    - git --version
+    - git clone https://github.com/conda-forge/git-feedstock
+
+    # Git credential commands
+    - git-credential-osxkeychain 2>&1 | grep -q usage  # [osx]
+
+    # test completions
+    - bash $PREFIX/share/bash-completion/completions/git  # [unix]
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
+
+about:
+  home: https://git-scm.com/
+  license: GPL v2 and LGPL 2.1
+  license_file: COPYING  # [not win]
+  summary: distributed version control system
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - msarahan
+    - pelson
+    - scopatz
+    - ocefpaf
+    - dougalsutherland

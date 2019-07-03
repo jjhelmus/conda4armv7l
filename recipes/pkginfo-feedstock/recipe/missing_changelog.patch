@@ -1,0 +1,18 @@
+--- pkginfo-1.5.0.orig/setup.py	2019-01-07 22:03:10.000000000 -0200
++++ pkginfo-1.5.0/setup.py	2019-01-08 14:34:26.909897961 -0200
+@@ -16,14 +16,13 @@
+ 
+ here = os.path.abspath(os.path.dirname(__file__))
+ README = open(os.path.join(here, 'README.txt')).read()
+-CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
+ 
+ setup(
+     name='pkginfo',
+     version='1.5.0',
+     description='Query metadatdata from sdists / bdists / installed packages.',
+     platforms=['Unix', 'Windows'],
+-    long_description='\n\n'.join([README, CHANGES]),
++    long_description='\n\n'.join([README]),
+     keywords='distribution sdist installed metadata',
+     url='https://code.launchpad.net/~tseaver/pkginfo/trunk',
+     author='Tres Seaver, Agendaless Consulting',

@@ -1,0 +1,41 @@
+{% set version = "4.24.6" %}
+
+package:
+  name: hypothesis
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/h/hypothesis/hypothesis-{{ version }}.tar.gz
+  sha256: 15e9d9064e826d6f693a3633a3fae116832159aba0951b8eb65a47082feda4c9
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+
+requirements:
+  build:
+    - python
+    - pip
+  run:
+    - python
+    - attrs >=16.0.0
+    - enum34  # [py<34]
+
+test:
+  imports:
+    - hypothesis
+    - hypothesis.extra
+    - hypothesis.strategies
+    - hypothesis.stateful
+
+about:
+  home: https://github.com/HypothesisWorks/hypothesis-python
+  license: MPL 2.0
+  license_file: LICENSE.txt
+  summary: 'A library for property based testing'
+
+extra:
+  recipe-maintainers:
+    - ericmjl
+    - jochym
+    - tadeu

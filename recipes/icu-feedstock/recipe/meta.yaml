@@ -1,0 +1,82 @@
+{% set version = "60.2" %}
+{% set version_under = version.replace(".", "_") %}
+
+package:
+  name: icu
+  version: {{ version }}
+
+source:
+  - url: http://download.icu-project.org/files/icu4c/{{ version }}/icu4c-{{ version_under }}-src.tgz
+    sha256: f073ea8f35b926d70bb33e6577508aa642a8b316a803f11be20af384811db418
+    patches:
+      # Include an extra header when using mingw.
+      - icu4c-4_9_1-mingw-w64-mkdir-compatibility.patch  # [win]
+      # Omit lib prefix on libraries.
+      - icu-config.patch  # [win]
+
+  - url: http://download.icu-project.org/files/icu4c/{{ version }}/icu4c-{{ version_under }}-data.zip
+    sha256: 68f42ad0c9e0a5a5af8eba0577ba100833912288bad6e4d1f42ff480bbcfd4a9
+    folder: source/data
+
+build:
+  number: 0
+  run_exports:
+    # icu changes their file extension with each major rev.  Default pin OK.
+    - {{ pin_subpackage('icu') }}
+  skip: True   # [win and vc<14]
+
+requirements:
+  build:
+    - m2-base  # [win]
+    - m2-make  # [win]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - make     # [unix]
+  host:
+  run:
+
+test:
+  files:
+    # From http://source.icu-project.org/repos/icu/data/trunk/charset/data/ucm/gb-18030-2000.ucm
+    - gb-18030-2000.ucm
+    # From ICU's data folder.
+    - de.txt
+  commands:
+    # Libraries
+    {% set libs = [
+       "libicudata",
+       "libicui18n",
+       "libicuio",
+       "libicutest",
+       "libicutu",
+       "libicuuc"
+     ] %}
+    {% for each_lib in libs %}
+    - test -f $PREFIX/lib/{{ each_lib }}.a  # [not win]
+    - test -f $PREFIX/lib/{{ each_lib }}.{{ version }}.dylib   # [osx]
+    - test -f $PREFIX/lib/{{ each_lib }}.so.{{ version }}  # [linux]
+    {% endfor %}
+
+    # CLI tests
+    - genbrk --help
+    - gencfu --help
+    - gencnval --help
+    - gendict --help
+    - icuinfo --help
+    - icu-config --help  # [not win]
+    - makeconv gb-18030-2000.ucm
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
+
+about:
+  home: http://site.icu-project.org/
+  license: MIT
+  license_file: LICENSE
+  summary: 'International Components for Unicode.'
+
+extra:
+  recipe-maintainers:
+    - ccordoba12
+    - jakirkham
+    - msarahan
+    - ocefpaf

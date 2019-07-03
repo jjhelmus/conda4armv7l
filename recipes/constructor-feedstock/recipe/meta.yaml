@@ -1,0 +1,47 @@
+{% set version = "2.3.0" %}
+{% set sha256 = "81522d7e9b63b66970314e63c1aad69a383541de2d4052fa3e69f892a5bf5dfc" %}
+
+package:
+  name: constructor
+  version: {{ version }}
+
+source:
+  fn: constructor-{{ version }}.tar.gz
+  url: https://github.com/conda/constructor/archive/{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 1000
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+  entry_points:
+    - constructor = constructor.main:main
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+    - conda >=4.5
+    - ruamel_yaml
+    - pillow >=3.1     # [win]
+    - nsis >=3.01      # [win]
+
+test:
+  imports:
+    - constructor
+  commands:
+    - constructor --test
+
+about:
+  home: http://github.com/conda/constructor
+  license: BSD 3-Clause
+  license_family: BSD
+  license_file: LICENSE.txt
+  summary: create installer from conda packages
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - mbargull

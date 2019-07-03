@@ -1,0 +1,3 @@
+FROM condaforge/linux-anvil-aarch64
+ADD yum_requirements.txt /opt/requirements.txt
+RUN yum -y install $(cat /opt/requirements.txt)

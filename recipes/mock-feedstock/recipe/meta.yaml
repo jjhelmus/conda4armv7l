@@ -1,0 +1,37 @@
+{% set version = "3.0.5" %}
+
+package:
+  name: mock
+  version: {{ version }}
+
+source:
+  url: https://pypi.python.org/packages/source/m/mock/mock-{{ version }}.tar.gz
+  sha256: 83657d894c90d5681d62155c82bda9c1187827525880eda8ff5df4ec813437c3
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - funcsigs    # [py<33]
+    - six
+
+test:
+  imports:
+    - mock
+
+about:
+  home: https://github.com/testing-cabal/mock
+  license: BSD-2-Clause
+  license_file: LICENSE.txt
+  summary: A library for testing in Python
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - ocefpaf

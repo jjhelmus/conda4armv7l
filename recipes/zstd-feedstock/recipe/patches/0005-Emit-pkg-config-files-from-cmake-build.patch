@@ -1,0 +1,8 @@
+--- /opt/conda/conda-bld/zstd_1534096872716/work_moved_zstd-1.3.5-h5bba6e5_0_osx-64/build/cmake/CMakeLists.txt.orig	2018-08-12 19:09:13.000000000 +0100
++++ /opt/conda/conda-bld/zstd_1534096872716/work_moved_zstd-1.3.5-h5bba6e5_0_osx-64/build/cmake/CMakeLists.txt	2018-08-12 19:09:48.000000000 +0100
+@@ -104,3 +104,5 @@
+    COMMAND ${CMAKE_BUILD_TOOL} clean
+    COMMAND rm -rf ${CMAKE_BINARY_DIR}/
+ )
++
++CONFIGURE_FILE("libzstd.pc.in" "libzstd.pc" @ONLY)

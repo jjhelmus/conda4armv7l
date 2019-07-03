@@ -1,0 +1,46 @@
+{% set name = "py" %}
+{% set version = "1.8.0" %}
+{% set hash_type = "sha256" %}
+{% set hash = "dc639b046a6e2cff5bbe40194ad65936d6ba360b52b3c3fe1d08a82dd50b5e53" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/p/py/py-{{ version }}.tar.gz
+  {{ hash_type }}: {{ hash }}
+
+build:
+  noarch: python
+  number: 0
+  script: python -m pip install . --no-deps --ignore-installed
+
+requirements:
+  build:
+    - pip
+    - python
+    - setuptools_scm
+  run:
+    - python
+
+test:
+  imports:
+    - py
+    - py.code
+    - py.io
+    - py.log
+    - py.path
+    - py.process
+
+about:
+  home: https://github.com/pytest-dev/py
+  license: MIT
+  license_file: LICENSE
+  summary: "library with cross-python path, ini-parsing, io, code, log facilities"
+
+extra:
+  recipe-maintainers:
+    - nicoddemus
+    - jakirkham

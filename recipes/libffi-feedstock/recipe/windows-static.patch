@@ -1,0 +1,13 @@
+diff --git a/include/ffi.h.in b/include/ffi.h.in
+index f403ae0..f56ff31 100644
+--- a/include/ffi.h.in
++++ b/include/ffi.h.in
+@@ -175,7 +175,7 @@ typedef struct _ffi_type
+ /* as a workaround, they can define FFI_BUILDING if they  */
+ /* *know* they are going to link with the static library. */
+ #if defined _MSC_VER && !defined FFI_BUILDING
+-#define FFI_EXTERN extern __declspec(dllimport)
++#define FFI_EXTERN extern /*__declspec(dllimport) conda-forge: static library only*/
+ #else
+ #define FFI_EXTERN extern
+ #endif

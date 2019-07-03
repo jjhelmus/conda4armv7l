@@ -1,0 +1,41 @@
+{% set version = "0.10" %}
+
+package:
+  name: patchelf
+  version: {{ version }}
+
+source:
+  fn: patchelf-{{ version }}.tar.gz
+  url: http://nixos.org/releases/patchelf/patchelf-{{ version }}/patchelf-{{ version }}.tar.gz
+  sha256: 99c1d47a27afc52dedcf80379c789ae67113d043bafc5bc88f9293eb198b011a
+
+build:
+  number: 0
+  skip: true  # [not linux]
+  binary_relocation: False
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - make
+
+test:
+  commands:
+    - test "$(patchelf --version)" == "patchelf {{ version }}"
+
+about:
+  home: http://nixos.org/patchelf.html
+  license: GPL 3
+  license_file: COPYING
+  summary: A small utility to modify the dynamic linker and RPATH of ELF executables.
+  description: |
+    PatchELF is a small utility to modify the dynamic linker and RPATH of ELF
+    executables.
+  doc_url: http://nixos.org/patchelf.html
+  dev_url: https://github.com/NixOS/patchelf
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - mjuric

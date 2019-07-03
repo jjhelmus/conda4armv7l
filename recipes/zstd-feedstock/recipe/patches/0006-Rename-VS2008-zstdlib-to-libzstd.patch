@@ -1,0 +1,14 @@
+--- work/build/VS2008/zstdlib/zstdlib.vcproj.orig	2018-10-18 04:23:55.926703200 -0500
++++ work/build/VS2008/zstdlib/zstdlib.vcproj	2018-10-18 04:24:37.796357800 -0500
+@@ -2,9 +2,9 @@
+ <VisualStudioProject
+ 	ProjectType="Visual C++"
+ 	Version="9.00"
+-	Name="zstdlib"
++	Name="libzstd"
+ 	ProjectGUID="{99DE2A79-7298-4004-A0ED-030D7A3796CA}"
+-	RootNamespace="zstdlib"
++	RootNamespace="libzstd"
+ 	Keyword="Win32Proj"
+ 	TargetFrameworkVersion="196613"
+ 	>

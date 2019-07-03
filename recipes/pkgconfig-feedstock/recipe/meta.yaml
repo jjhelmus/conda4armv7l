@@ -1,0 +1,41 @@
+{% set version = "1.3.1" %}
+
+package:
+  name: pkgconfig
+  version: {{ version }}
+
+source:
+  url: https://github.com/matze/pkgconfig/archive/v{{ version }}.tar.gz
+  sha256: b4b8277cf33df2bfdd73da2bc4faab1b4b65b6d12e295aa6c70987642bcfb5c7
+
+build:
+  number: 1001
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  build:
+    - pkg-config        # [unix]
+  host:
+    - python
+    - pip
+    - nose >=1.0
+  run:
+    - python
+    - m2w64-pkg-config  # [win]
+
+test:
+  imports:
+    - pkgconfig
+
+about:
+  home: https://github.com/matze/pkgconfig
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: 'A Python interface to the pkg-config command line tool'
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - lbdreyer
+    - ocefpaf

@@ -1,0 +1,82 @@
+{% set name = "zstd" %}
+{% set version = "1.4.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://github.com/facebook/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 7f323f0e0c18488748f3d9b2d4353f00e904ea2ccd0372ea04d7f77aa1156557
+  patches:
+    - patches/0001-Fix-VS2008-solution-format-version.patch          # [win]
+    - patches/0002-Fix-order-of-building-for-VS2010.patch            # [win]
+    - patches/0003-Disable-whole-program-optimization-VS2010.patch   # [win]
+    - patches/0006-Rename-VS2008-zstdlib-to-libzstd.patch            # [win]
+
+build:
+  number: 0
+  skip: True  # [win and vc<14]
+  run_exports:
+    # pretty bad removal of symbols in every other micro release:
+    #   https://abi-laboratory.pro/tracker/timeline/zstd/
+    - {{ pin_subpackage('zstd', max_pin='x.x.x') }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - msinttypes  # [win and vc<14]
+    - make   # [unix]
+    - cmake
+  host:
+    - zlib
+    - xz
+    - lz4-c
+  run:
+    - zlib
+    - xz
+    - lz4-c
+
+test:
+  requires:
+    - pkg-config  # [unix]
+
+  commands:
+    - zstd -be -i5
+
+    - test -f ${PREFIX}/include/{{ name }}.h     # [unix]
+    - test -f ${PREFIX}/lib/lib{{ name }}.a      # [unix]
+    - test -f ${PREFIX}/lib/lib{{ name }}.so     # [linux]
+    - test -f ${PREFIX}/lib/lib{{ name }}.dylib  # [osx]
+
+    - if not exist %LIBRARY_INC%\{{ name }}.h exit 1              # [win]
+    - if not exist %LIBRARY_BIN%\lib{{ name }}.dll exit 1         # [win]
+    - if not exist %LIBRARY_LIB%\lib{{ name }}.lib exit 1         # [win]
+    - if not exist %LIBRARY_LIB%\lib{{ name }}_static.lib exit 1  # [win and vc>=14]
+
+    - export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig  # [unix]
+    - test -f ${PREFIX}/lib/pkgconfig/lib{{ name }}.pc  # [unix]
+    - pkg-config --cflags lib{{ name }}  # [unix]
+
+about:
+  home: http://www.zstd.net
+  license: BSD 3-Clause
+  license_file: LICENSE
+  summary: "Zstandard - Fast real-time compression algorithm"
+  description: |
+    Zstandard is a real-time compression algorithm, providing high compression
+    ratios. It offers a very wide range of compression / speed trade-off, while
+    being backed by a very fast decoder. It also offers a special mode for
+    small data, called dictionary compression, and can create dictionaries from
+    any sample set. Zstandard library is provided as open source software using
+    a BSD license.
+  doc_url: https://facebook.github.io/zstd/zstd_manual.html
+  dev_url: https://github.com/facebook/zstd
+
+extra:
+  recipe-maintainers:
+    - rmax
+    - msarahan
+    - xhochy
