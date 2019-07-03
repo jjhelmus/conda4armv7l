@@ -7,11 +7,11 @@ The recipes in this repository were built in the following order:
 
 # Built in `pkg_builder` container
 
+* ctng-compilers-activation - gfortran test will fail, this is fine
+* make
 
 # Planned build order
 
-* ctng-compilers-activation - gfortran test will fail, this is fine
-* make
 * libtool
 * m4
 * perl
