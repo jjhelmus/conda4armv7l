@@ -14,7 +14,7 @@ build:
   skip: True  # [win]
   script:
    - make CC=$CC -f unix/Makefile generic
-   - mkdir $PREFIX/bin
+   - mkdir -p $PREFIX/bin
    - mv unzip $PREFIX/bin
 
 requirements:
