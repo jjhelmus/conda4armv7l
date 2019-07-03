@@ -41,8 +41,10 @@ else
 fi
 
 # Necessary because CentOS5.11 is having some certificate issues.
-if [[ ! -e "${SYS_PREFIX}/conda-bld/src_cache/duma_${ctng_duma//./_}.tar.gz" ]]; then
-  ${DOWNLOADER_INSECURE} http://mirror.opencompute.org/onie/crosstool-NG/duma_${ctng_duma//./_}.tar.gz ${DOWNLOADER_OUT} ${SYS_PREFIX}/conda-bld/src_cache/duma_${ctng_duma//./_}.tar.gz
+if [ -n "${ctng_duma}" ]; then
+    if [[ ! -e "${SYS_PREFIX}/conda-bld/src_cache/duma_${ctng_duma//./_}.tar.gz" ]]; then
+    ${DOWNLOADER_INSECURE} http://mirror.opencompute.org/onie/crosstool-NG/duma_${ctng_duma//./_}.tar.gz ${DOWNLOADER_OUT} ${SYS_PREFIX}/conda-bld/src_cache/duma_${ctng_duma//./_}.tar.gz
+    fi
 fi
 
 if [[ ! -e "${SYS_PREFIX}/conda-bld/src_cache/expat-2.2.0.tar.bz2" ]]; then
@@ -65,7 +67,12 @@ fi
 if [[ ! -n $(find ${SRC_DIR}/gcc_built -iname ${ctng_cpu_arch}-${ctng_vendor}-*-gfortran) ]]; then
     source ${RECIPE_DIR}/write_ctng_config
 
-    yes "" | ct-ng ${ctng_sample}
+    if [ -n "${ctng_config_file}" ]; then
+        cp ${RECIPE_DIR}/${ctng_config_file} .config
+        yes "" | ct-ng oldconfig
+    else
+        yes "" | ct-ng ${ctng_sample}
+    fi
     write_ctng_config_before .config
     # Apply some adjustments for conda.
     sed -i.bak "s|# CT_DISABLE_MULTILIB_LIB_OSDIRNAMES is not set|CT_DISABLE_MULTILIB_LIB_OSDIRNAMES=y|g" .config

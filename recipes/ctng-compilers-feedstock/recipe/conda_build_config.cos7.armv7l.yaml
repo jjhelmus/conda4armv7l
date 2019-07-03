@@ -1,0 +1,45 @@
+# in compiler CBC.yaml
+build_num:
+  - 0
+ctng_gcc_build_num:
+  - 0
+ctng_sample:
+  - armv8-rpi3-linux-gnueabihf
+ctng_config_file:
+  - conda_cos7-armv7l.config
+ctng_cpu_arch:
+  - armv7l
+gnu:
+  - 2.17
+ctng_kernel:
+  - 3.10
+ctng_target_platform:
+  - linux-armv7l
+ctng_vendor:
+  - conda_cos7
+ctng_binutils:
+  - 2.29.1
+ctng_gcc:
+  - 8.3.0
+ctng_gmp:
+  - 6.1.2
+ctng_isl:
+  - 0.20
+ctng_libc:
+  - gnu
+ctng_libiconv:
+  - 1.15
+ctng_mpc:
+  - 1.1.0
+ctng_nature:
+  - shared
+ctng_ncurses:
+  - 6.1
+ctng_mpfr:
+  - 4.0.2
+ctng_gettext:
+  - 0.19.8.1
+zip_keys:
+  -
+    - ctng_target_platform
+    - ctng_cpu_arch

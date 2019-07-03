@@ -126,6 +126,8 @@ popd
 kernel_arch=${ctng_cpu_arch}
 if [[ ${kernel_arch} == aarch64 ]]; then
   kernel_arch=arm64
+elif [[ ${kernel_arch} == armv7l ]]; then
+  kernel_arch=arm
 elif [[ ${kernel_arch} == i686 ]]; then
   kernel_arch=x86
 fi
