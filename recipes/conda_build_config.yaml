@@ -1,0 +1,38 @@
+VERBOSE_AT:
+  - V=1
+VERBOSE_CM:
+  - VERBOSE=1
+# compiler settings
+c_compiler_version:
+  - 8.3.0
+cxx_compiler_version:
+  - 8.3.0
+fortran_compiler_version:
+  - 8.3.0
+# these should be fixed in conda-build
+cdt_name:
+  - 'cos7'
+cdt_arch:
+  - 'armv7l'
+# conda-build sets this to ...cos6 by default
+BUILD:
+  - "armv7l-conda_cos7-linux-gnu"
+# package pins
+bzip2:
+  - 1.0
+expat:
+  - 2.2
+openssl:
+  - 1.1.1
+perl:
+  - 5.26
+python:
+  - 3.7
+sqlite:
+  - 3
+tk:
+  - 8.6
+zlib:
+  - 1.2
+xz:
+  - 5
