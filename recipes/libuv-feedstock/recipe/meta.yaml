@@ -1,0 +1,48 @@
+{% set version = "1.30.1" %}
+
+package:
+  name: libuv
+  version: {{ version }}
+
+source:
+  url: https://github.com/libuv/libuv/archive/v{{ version }}.tar.gz
+  sha256: d85566c2c4eae7d8e2c2d27d40e728fea29f9086e98e795c5cdce1a790f43de5
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - automake             # [unix]
+    - autoconf             # [unix]
+    - libtool              # [unix]
+    - make                 # [unix]
+    - sed                  # [osx]
+
+test:
+  commands:
+    - test -f "$PREFIX/include/uv.h"
+    - test -f "$PREFIX/lib/libuv.a"  # [unix]
+    - test -f "$PREFIX/lib/libuv.so.1"  # [linux]
+    - test -f "$PREFIX/lib/libuv.1.dylib"  # [osx]
+    - test -f "$PREFIX/lib/libuv${SHLIB_EXT}"  # [not win]
+
+about:
+  home: http://libuv.org/
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: 'Cross-platform asynchronous I/O'
+  description: |
+    libuv is a multi-platform support library with a focus on asynchronous I/O.
+    It was primarily developed for use by Node.js, but it's also used by Luvit,
+    Julia, pyuv, and others.
+  doc_url: http://docs.libuv.org/
+  dev_url: https://github.com/libuv/libuv
+
+extra:
+  recipe-maintainers:
+    - frol
+    - mariusvniekerk
