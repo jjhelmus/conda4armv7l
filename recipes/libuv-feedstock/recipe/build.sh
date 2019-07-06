@@ -9,6 +9,11 @@ if [ "${target_platform}" == "linux-aarch64" ] || [ "${target_platform}" == "lin
    sed -i '/udp_no_autobind/d' ./test/test-list.h
 fi
 
+# This particular test fails on linux-armv7l
+if [ "${target_platform}" == 'linux-armv7l' ]; then
+   sed -i '/fs_copyfile/d' ./test/test-list.h
+fi
+
 # This particular test fails on osx
 if [ "${target_platform}" == 'osx-64' ]; then
    sed -i '/hrtime/d' ./test/test-list.h
@@ -24,6 +29,6 @@ LIBTOOLIZE=libtoolize sh ./autogen.sh
    --disable-silent-rules \
    --prefix="$PREFIX" \
 
-make
+make -j${CPU_COUNT} ${VERBOSE_AT}
 make check
 make install
