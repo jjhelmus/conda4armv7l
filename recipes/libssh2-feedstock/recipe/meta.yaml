@@ -18,11 +18,11 @@ requirements:
     - {{ compiler('c') }}
     - make   # [unix]
     - openssl 1.0         # [aarch64]            
-    - cmake_nosystemcurl  # [aarch64]
+    - cmake_nosystemcurl  # [aarch64 or armv7l]
   host:
     # This breals a dependency cycle:
     # curl->libssh2->cmake->curl
-    - cmake-binary        # [not aarch64]
+    - cmake-binary        # [not aarch64 and not armv7l]
     - openssl
     - zlib
   run:
