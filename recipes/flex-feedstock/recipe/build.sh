@@ -14,7 +14,7 @@ if [[ ${HOST} =~ .*linux.* ]]; then
     export CC_FOR_BUILD=${GCC}
 fi
 
-./configure --prefix="$PREFIX"  \
+ac_cv_func_malloc_0_nonnull=yes ac_cv_func_realloc_0_nonnull=yes ./configure --prefix="$PREFIX"  \
             --host=${HOST}      \
             --build=${BUILD}
 
