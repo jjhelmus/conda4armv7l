@@ -1,0 +1,32 @@
+package:
+  name: libxcb-cos7-armv7l
+  version: 1.13
+
+source:
+  - url: http://mirror.centos.org/altarch/7/os/armhfp/Packages/libxcb-1.13-1.el7.armv7hl.rpm
+    sha256: 5350d7e19ea4cbc51245e706220f82d8c4d701fb9c0b46991b1fd45e9525e8b2
+    folder: binary
+  - url: http://vault.centos.org/7.6.1810/os/Source/SPackages/libxcb-1.13-1.el7.src.rpm
+    folder: source
+
+build:
+  number: 0
+  missing_dso_whitelist:
+    - '*'
+
+
+
+outputs:
+  - name: libxcb-cos7-armv7l
+    build:
+      noarch: generic
+
+    about:
+      home: https://xcb.freedesktop.org/
+      license: MIT
+      license_family: MIT
+      summary: "(CDT) A C binding to the X11 protocol"
+      description: |
+        The X protocol C-language Binding (XCB) is a replacement for Xlib featuring a
+        small footprint, latency hiding, direct access to the protocol, improved
+        threading support, and extensibility.

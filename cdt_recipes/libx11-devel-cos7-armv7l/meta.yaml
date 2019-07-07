@@ -1,0 +1,36 @@
+package:
+  name: libx11-devel-cos7-armv7l
+  version: 1.6.5
+
+source:
+  - url: http://mirror.centos.org/altarch/7/os/armhfp/Packages/libX11-devel-1.6.5-2.el7.armv7hl.rpm
+    sha256: bf391357a6752d02a18fd7413f8ec0c08a41f71ab5e5e6a1e383eb977f4ceb8e
+    folder: binary
+  - url: http://vault.centos.org/7.6.1810/os/Source/SPackages/libX11-1.6.5-2.el7.src.rpm
+    folder: source
+
+build:
+  number: 0
+  missing_dso_whitelist:
+    - '*'
+
+requirements:
+  build:
+    - libx11-cos7-armv7l ==1.6.5
+
+
+outputs:
+  - name: libx11-devel-cos7-armv7l
+    build:
+      noarch: generic
+    requirements:
+      run:
+        - libx11-cos7-armv7l ==1.6.5
+
+    about:
+      home: http://www.x.org
+      license: MIT
+      license_family: MIT
+      summary: "(CDT) Development files for libX11"
+      description: |
+        X.Org X11 libX11 development package
