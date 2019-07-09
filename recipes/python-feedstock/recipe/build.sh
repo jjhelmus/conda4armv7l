@@ -41,6 +41,9 @@ fi
 if [[ ${target_platform} == linux-ppc64le ]]; then
   _OPTIMIZED=no
 fi
+if [[ ${target_platform} == linux-armv7l ]]; then
+  _OPTIMIZED=no
+fi
 
 declare -a _dbg_opts
 if [[ ${DEBUG_PY} == yes ]]; then
@@ -371,6 +374,8 @@ if [[ -n ${HOST} ]]; then
         PY_ARCH=powerpc64le
         elif [[ ${HOST} =~ aarch64.* ]]; then
         PY_ARCH=aarch64
+        elif [[ ${HOST} =~ armv7.* ]]; then
+        PY_ARCH=armv7l
         else
         echo "ERROR: Cannot determine PY_ARCH for host ${HOST}"
         exit 1
