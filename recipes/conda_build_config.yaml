@@ -16,7 +16,7 @@ cdt_arch:
   - 'armv7l'
 # conda-build sets this to ...cos6 by default
 BUILD:
-  - "armv7l-conda_cos7-linux-gnu"
+  - "armv7-conda_cos7-linux-gnueabihf"
 # package pins
 bzip2:
   - 1.0
