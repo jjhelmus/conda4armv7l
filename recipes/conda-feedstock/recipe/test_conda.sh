@@ -7,8 +7,8 @@ echo $CONDA_PREFIX
 python -c "from __future__ import print_function; import conda; print(conda.__version__)"
 
 # Show where the conda commands are.
-which conda
-which conda-env
+type conda
+type conda-env
 
 # Run some conda commands.
 conda --version
