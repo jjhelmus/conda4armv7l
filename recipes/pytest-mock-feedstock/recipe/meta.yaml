@@ -1,0 +1,46 @@
+{% set name = "pytest-mock" %}
+{% set version = "1.10.4" %}
+{% set hash_type = "sha256" %}
+{% set hash = "5bf5771b1db93beac965a7347dc81c675ec4090cb841e49d9d34637a25c30568" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  {{ hash_type }}: {{ hash }}
+
+build:
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  build:
+    - python
+    - pip
+    - setuptools_scm
+  run:
+    - python
+    - pytest
+    - mock  # [py27]
+
+test:
+  source_files:
+    - test_pytest_mock.py
+  imports:
+    - pytest_mock
+  commands:
+    - py.test --help
+    - pytest test_pytest_mock.py
+
+about:
+  home: https://github.com/pytest-dev/pytest-mock
+  license: MIT
+  license_file: LICENSE
+  summary: Thin-wrapper around the mock package for easier use with py.test
+
+extra:
+  recipe-maintainers:
+    - nicoddemus
