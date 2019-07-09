@@ -34,7 +34,7 @@ test:
   imports:
     - libarchive
   commands:
-    - python -c "import libarchive; libarchive.extract_file('test/hello_world.xar')"  # [not win]
+    - LIBARCHIVE="" python -c "import libarchive; libarchive.extract_file('test/hello_world.xar')"  # [not win]
     - python -c "import libarchive; libarchive.extract_file('test\\hello_world.xar')"  # [win]
 
 about:
