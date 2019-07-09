@@ -115,36 +115,25 @@ The recipes in this repository were built in the following order:
 * beautifulsoup4
 * ruamel_yaml
 * docutils
-
-# Planned build order
-
-# 25
 * requests
-
-# 20
 * responses
 * requests_download
 * flit
 * ptyprocess
-* lief
-
-# 15
 * pexpect
-* conda
-* icu : compile error
-* libxml2
-* krb5
-
-# 10
-* curl
-* lzo
-* cmake
-* git
-* zstd
-
-# 5
-* libarchive
-* python-libarchive-c
-* conda-build
-* constructor
 * anaconda-client
+* krb5
+* curl
+* cmake
+* lzo
+* zstd
+* libxml2
+* libarchive
+* git
+* lief
+* python-libarchive-c
+* pytest-mock : build with --no-test as tests are failing, investigate why
+* conda-package-handling : build with --no-test as tests are failing, investigate why
+* conda
+* constructor
+* conda-build
