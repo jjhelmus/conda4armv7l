@@ -1,0 +1,69 @@
+{% set version = "3.14.5" %}
+
+package:
+  name: cmake_nosystemcurl
+  version: {{ version }}
+
+source:
+  url: https://gitlab.kitware.com/cmake/cmake/-/archive/v{{ version }}/cmake-v{{ version }}.tar.bz2
+  fn: cmake-{{ version }}.tar.gz
+  sha256: 56aaf8c95ae5141148561e7390d2419a86ecfa27ee96f1adee11d9095860df6e
+
+build:
+  number: 0
+  skip: True  # [win and vc<14]
+  ignore_run_exports:
+    - vc
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - make            # [unix]
+
+  host:
+    - bzip2           # [unix]
+    - expat           # [unix]
+    - ncurses         # [unix]
+    - xz              # [unix]
+    - zlib            # [unix]
+    - libuv           # [unix]
+    - rhash           # [unix]
+
+  run:
+    - bzip2           # [unix]
+    - expat           # [unix]
+    - ncurses         # [unix]
+    - xz              # [unix]
+    - zlib            # [unix]
+    - libuv           # [unix]
+    - rhash           # [unix]
+    - vs2015_runtime  # [win]
+
+test:
+  files:
+    - SSLTest.cmake
+  commands:
+    - cmake --version
+    - cmake -V -P SSLTest.cmake
+    - ctest --version
+    - cpack --version
+    - ccmake --version  # [unix]
+
+about:
+  home: http://www.cmake.org/
+  license: BSD 3-clause
+  license_family: BSD
+  summary: CMake is an extensible, open-source system that manages the build process
+
+extra:
+  recipe-maintainers:
+    - blowekamp
+    - groutr
+    - jakirkham
+    - jschueller
+    - ocefpaf
+    - msarahan
+    - scopatz
+    - tadeu
+    - marcelotrevisani

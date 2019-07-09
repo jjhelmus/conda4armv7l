@@ -1,0 +1,41 @@
+{% set version = "19.0" %}
+
+package:
+  name: packaging
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/p/packaging/packaging-{{ version }}.tar.gz
+  sha256: 0c98a5d0be38ed775798ece1b9727178c4469d9c3b4ada66e8e6b7849f8732af
+
+build:
+  number: 0
+  noarch: python
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  build:
+    - python
+    - pip
+    - pyparsing
+    - six
+
+  run:
+    - python
+    - pyparsing
+    - six
+
+test:
+  imports:
+    - packaging
+
+about:
+  home: https://github.com/pypa/packaging
+  license: Apache 2.0 or BSD 2-Clause
+  license_file: LICENSE
+  summary: Core utilities for Python packages
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - nicoddemus

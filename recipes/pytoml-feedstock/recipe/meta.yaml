@@ -1,0 +1,38 @@
+{% set version = "0.1.20" %}
+
+package:
+  name: pytoml
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/p/pytoml/pytoml-{{ version }}.tar.gz
+  sha256: ca2d0cb127c938b8b76a9a0d0f855cf930c1d50cc3a0af6d3595b566519a1013
+
+build:
+  number: 0
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+
+test:
+  imports:
+    - pytoml
+    - pytoml.parser
+    - pytoml.writer
+
+about:
+  home: https://github.com/avakar/pytoml
+  license: MIT
+  license_file: LICENSE
+  summary: 'A TOML-0.4.0 parser/writer for Python.'
+
+extra:
+  recipe-maintainers:
+    - pkgw
+    - ocefpaf

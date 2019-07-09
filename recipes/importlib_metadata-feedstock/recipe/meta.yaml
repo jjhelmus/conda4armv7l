@@ -1,0 +1,44 @@
+{% set name = "importlib_metadata" %}
+{% set version = "0.18" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: cb6ee23b46173539939964df59d3d72c3e0c1b5d54b84f1d8a7e912fe43612db
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv "
+
+requirements:
+  host:
+    - pip
+    - setuptools_scm
+    - python
+  run:
+    - python
+    - zipp >=0.5
+    - pathlib2  # [py2k]
+    - contextlib2  # [py2k]
+    - configparser >=3.5  # [py2k]
+
+test:
+  imports:
+    - importlib_metadata
+
+about:
+  home: http://importlib-metadata.readthedocs.io
+  license: APACHE-2.0
+  license_family: APACHE
+  license_file: LICENSE
+  summary:  A library to access the metadata for a Python package
+  doc_url: https://importlib-metadata.readthedocs.io
+  dev_url: https://gitlab.com/python-devs/importlib_metadata
+
+extra:
+  recipe-maintainers:
+    - nehaljwani
+    - nicoddemus
