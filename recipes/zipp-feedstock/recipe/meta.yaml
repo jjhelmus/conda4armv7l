@@ -1,0 +1,40 @@
+{% set name = "zipp" %}
+{% set version = "0.5.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: ca943a7e809cc12257001ccfb99e3563da9af99d52f261725e96dfe0f9275bc3
+
+build:
+  number: 0
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools_scm
+  run:
+    - python
+
+test:
+  imports:
+    - zipp
+
+about:
+  home: https://github.com/jaraco/zipp
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: A pathlib-compatible Zipfile object wrapper
+  doc_url: https://zipp.readthedocs.io/en/latest
+  dev_url: https://github.com/jaraco/zipp
+
+extra:
+  recipe-maintainers:
+    - nehaljwani

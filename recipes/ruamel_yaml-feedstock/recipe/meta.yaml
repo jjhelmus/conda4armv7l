@@ -1,0 +1,51 @@
+{% set version = "0.15.71" %}
+# The version_info tuple in __init__.py must also be updated
+
+package:
+  name: ruamel_yaml
+  version: {{ version }}
+
+source:
+  url: https://bitbucket.org/ruamel/yaml/get/{{ version }}.tar.gz
+  sha256: 6f740e02f48c479db2cec9a19803e765b13ab4dbc654d98f28e0ebc6462cf6e8
+  patches:
+    - ordereddict_test.patch
+
+build:
+  number: 1000
+  no_link: .*\.(pyd|dll)   # [win]
+
+requirements:
+  build:
+    - {{ compiler("c") }}
+    - posix                # [win]
+
+  host:
+    - python
+    - pip
+    - cython
+    - yaml
+
+  run:
+    - python
+    - yaml
+
+test:
+  requires:
+    - pytest
+
+  imports:
+    - ruamel_yaml
+    - ruamel_yaml.ext._ruamel_yaml
+
+about:
+  home: https://bitbucket.org/ruamel/yaml
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: A patched copy of ruamel.yaml.
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - mbargull
