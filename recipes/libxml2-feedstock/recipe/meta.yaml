@@ -26,13 +26,11 @@ requirements:
     - pkg-config  # [not win]
     - make  # [not win]
   host:
-    - icu  # [not win]
-    - libiconv
+    - libiconv  # [not linux]
     - xz  # [not win]
     - zlib
   run:
-    - icu  # [not win]
-    - libiconv
+    - libiconv  # [not linux]
     - xz  # [not win]
     - zlib
 
