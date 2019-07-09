@@ -29,135 +29,122 @@ The recipes in this repository were built in the following order:
 * patch
 * libffi
 * gettext
-
-# Planned build order
-
-# problems
-* help2man : perl issue
-* openssl : perl issue
-
-# 90
+* help2man
+* openssl
+* libunistring
+* libidn2
 * wget
+* libuv
+* cmake_nosystemcurl : does not pass tests
+* libssh2
 * libx11-common-cos7-armv7l
 * libx11-cos7-armv7l
 * libx11-devel-cos7-armv7l
 * libxau-cos7-armv7l
 * libxcb-cos7-armv7l
-
-# 85
 * xorg-x11-proto-devel-cos7-armv7l
 * tk
+* flex
+* bison
+* lz4-c
+* patchelf
+* yaml
 * python
 * certifi
 * setuptools
-
-# 80
 * wheel
 * pip
 * cython
 * conda-env
 * six
-
-# 75
 * idna
 * setuptools_scm
-* atomicwrites
-* attrs
 * more-itertools
-
-# 70
-* pluggy
+* importlib_metadata
 * py
+* pluggy
+* pyparsing
+* packaging
+* wcwidth
+* atomicwrites : build with --no-test due to circular dep on pytest
+* attrs : build with --no-test due to numerous test requirements
 * pytest
 * pytest-runner
 * chardet
-
-# 65
 * pycparser
 * cffi
 * asn1crypto
-* cryptography-vectors
 * iso8601
-
-# 60
 * coverage
 * pretend
 * pytz
 * pbr
 * cookies
-
-# 55
 * mock
-* ptyprocess
-* pexpect
-* hypothesis : build with --no-test, lot of requirements for tests
-* crytography
-
-# 50
+* pytoml
+* hypothesis
+* cryptography-vectors
 * pyopenssl
 * pysocks
-* urllib3
-* requests
-* responses
-
-# 45
-* cake_nosystemcurl
-* libssh2
-* curl
-* beautifulsoup4
-* cmake
-
-# 40
-* yaml
-* ruamel_yaml
-* git
+* crytography : build with --no-test, look into why tests halt build
+* urllib3 : version 1.24.2, needed for requests
 * pycosat
-* conda
-
-# 35
 * filelock
 * glob2
 * markupsafe
 * jinja2
 * psutil
-
-# 30
 * pkginfo
 * pyyaml
 * tqdm
-* patchelf
-
-# 25
-* lz4-c
-* lzo
 * nose
 * pkgconfig
 * lz4
-
-# 20
-* icu
-* libxml2
-* zstd
-* libarchive
-* python-libarchive-c
-
-# 15
-* lief
-* conda-build
-* constructor
 * clyent
-* ipython_genutils
-
-# 10
 * decorator
+* ipython_genutils
 * traitlets
 * vcversioner
-* jsonschema
 * jupyter_core
+* python-dateutil
+* zipp
+* pyrsistent
+* jsonschema
+* nbformat
+* soupsieve
+* beautifulsoup4
+* ruamel_yaml
+* docutils
+
+# Planned build order
+
+# 25
+* requests
+
+# 20
+* responses
+* requests_download
+* flit
+* ptyprocess
+* lief
+
+# 15
+* pexpect
+* conda
+* icu : compile error
+* libxml2
+* krb5
+
+# 10
+* curl
+* lzo
+* cmake
+* git
+* zstd
 
 # 5
-* nbformat
-* flex
-* bison
-* python-dateutil
+* libarchive
+* python-libarchive-c
+* conda-build
+* constructor
 * anaconda-client
