@@ -1,0 +1,15 @@
+name: conda4armv7l_installer
+version: 1.0.0
+
+channels:
+  - http://conda.anaconda.org/c4armv7l
+  
+conda_default_channels: 
+  - http://conda.anaconda.org/c4armv7l
+
+license_file: ../LICENSE.txt
+
+specs:
+  - python
+  - conda
+  - pip
