@@ -139,3 +139,5 @@ The recipes in this repository were built in the following order:
 * conda-build
 * su-exec
 * tini
+* click
+* conda-forge-ci-setup
